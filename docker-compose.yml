@@ -1,0 +1,17 @@
+saltmaster:
+  container_name: saltmaster
+  restart: unless-stopped
+  image: smonko/salt-master
+  ports:
+    - 4505:4505
+    - 4506:4506
+  volumes:
+    - '/opt/salt/base-etc/certs:/etc/pki/tls/certs:ro'
+    - '/opt/salt/base-etc/pki:/etc/salt/pki:ro'
+    - '/opt/salt/base-etc/master.d:/etc/salt/master.d'
+    - '/opt/salt/base:/opt/salt/base'
+  environment:
+    - SALT_MINION_ID='SaltMasterMinion'
+    - SALT_ENV='base'
+    - SALT_MASTER_PUBLISH='4505'
+    - SALT_MASTER_PORT='4506'
